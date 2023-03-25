@@ -9,7 +9,27 @@ class Program
         string nama = "Jannatin";
         SayaTubeVideo tubeVideo = new SayaTubeVideo($"Tutorial Design By Contract - {nama}");
 
-        tubeVideo.IncreasePlayCount(5000);
+        try
+        {
+            tubeVideo.IncreasePlayCount(15000000);
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+
+        for (int i = 0; i < 1000000; i++)
+        {
+            try
+            {
+                tubeVideo.IncreasePlayCount(10);
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
         tubeVideo.PrintVideoDetails();
     }
 }

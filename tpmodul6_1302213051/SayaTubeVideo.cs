@@ -15,14 +15,31 @@ namespace tpmodul6_1302213051
         public SayaTubeVideo(string title)
         {
             Random randomID = new Random();
-            id = randomID.Next(10000, 99999); ;
+            id = randomID.Next(10000, 99999);
+            if (title == null || title.Length > 100)
+                throw new ArgumentException("Judul tidak boleh kosong dan maksimal 100 karakter");
             this.title = title;
             this.playCount = 0;
         }
 
         public void IncreasePlayCount(int count)
         {
-            playCount += count;
+            if (count > 10000000)
+            {
+                throw new ArgumentException("Maksimal play count 10,000,000.");
+            }
+
+            try
+            {
+                checked
+                {
+                    this.playCount += count;
+                }
+            }
+            catch (OverflowException ex)
+            {
+                throw new ArgumentException("Play count melebihi batas", ex);
+            }
         }
 
         public void PrintVideoDetails()
